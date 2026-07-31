@@ -77,7 +77,7 @@ export default function MyTeam({ profile }) {
       try {
         await emailjs.send(
           'service_wiu8ird',
-          'template_b6jjx9i',
+          'template_h0scrdf',
           {
             to_email: inviteEmail.toLowerCase(),
             role: inviteRole,
