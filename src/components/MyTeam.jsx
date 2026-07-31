@@ -60,20 +60,22 @@ export default function MyTeam({ profile }) {
       return;
     }
 
-    // 1. Insert into database
-    const { error } = await supabase
+    // 1. Insert into database and request the generated token back
+    const { data, error } = await supabase
       .from('invitations')
       .insert([{
         athlete_id: profile.id,
         invited_email: inviteEmail.toLowerCase(),
         role: inviteRole,
         status: 'pending'
-      }]);
+      }])
+      .select('token')
+      .single();
 
     if (error) {
       setMessage('Error sending invite: ' + error.message);
     } else {
-      // 2. Trigger EmailJS to send the email
+      // 2. Trigger EmailJS to send the email with the magic token attached
       try {
         await emailjs.send(
           'service_wiu8ird',
@@ -81,6 +83,7 @@ export default function MyTeam({ profile }) {
           {
             to_email: inviteEmail.toLowerCase(),
             role: inviteRole,
+            token: data.token
           },
           'H_TybueqLx_8Xp1hO'
         );

@@ -6,6 +6,7 @@ import { Activity, LayoutDashboard, Settings as SettingsIcon, Award, HeartPulse,
 import Auth from './components/Auth'
 import Dashboard from './components/Dashboard'
 import AdminDashboard from './components/AdminDashboard'
+import CoachDashboard from './components/CoachDashboard'
 import DailyTracker from './components/DailyTracker'
 import NutritionTracker from './components/NutritionTracker'
 import RecoveryTracker from './components/RecoveryTracker'
@@ -269,6 +270,15 @@ function App() {
   const [profileLoading, setProfileLoading] = useState(true)
 
   useEffect(() => {
+    // 1. Intercept magic link token from URL before OAuth redirect
+    const params = new URLSearchParams(window.location.search)
+    const token = params.get('token')
+    if (token) {
+      localStorage.setItem('invite_token', token)
+      // Clean up URL visually
+      window.history.replaceState({}, document.title, window.location.pathname)
+    }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
       if (session) fetchProfile(session.user.id)
@@ -290,6 +300,18 @@ function App() {
 
   const fetchProfile = async (userId) => {
     setProfileLoading(true)
+
+    // 2. Process magic link auto-approval before fetching profile
+    const inviteToken = localStorage.getItem('invite_token')
+    if (inviteToken) {
+      const { error: rpcError } = await supabase.rpc('accept_invitation', { invite_token: inviteToken })
+      if (!rpcError) {
+        localStorage.removeItem('invite_token')
+      } else {
+        console.error('Auto-approve failed:', rpcError.message)
+      }
+    }
+
     const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single()
     if (error) {
       console.error('Supabase Profile Error:', error)
@@ -346,7 +368,7 @@ function App() {
         <Sidebar onSignOut={() => supabase.auth.signOut()} isAdmin={profile?.is_admin} profile={profile} session={session} />
         <main style={{ marginLeft: '260px', minHeight: '100vh', padding: '32px', transition: 'margin-left 0.3s ease' }}>
           <Routes>
-            <Route path="/" element={<Dashboard profile={profile} />} />
+            <Route path="/" element={profile?.role === 'coach' ? <CoachDashboard profile={profile} /> : <Dashboard profile={profile} />} />
             <Route path="/daily" element={<DailyTracker />} />
             <Route path="/workout" element={<WorkoutLogger />} />
             <Route path="/recovery" element={<RecoveryTracker />} />
