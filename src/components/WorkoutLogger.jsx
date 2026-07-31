@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { saveWorkoutLocal } from '../utils/offlineSync';
+import { saveLocal } from '../utils/offlineSync';
 
 export default function WorkoutLogger({ onNavigate }) {
   const [exercise, setExercise] = useState('Running');
@@ -15,7 +15,7 @@ export default function WorkoutLogger({ onNavigate }) {
     setIsSaving(true);
     
     // Save to local storage (Offline first)
-    saveWorkoutLocal({
+    saveLocal('workout_logs', {
       exercise,
       distance,
       duration,
