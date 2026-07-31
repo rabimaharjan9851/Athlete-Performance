@@ -32,7 +32,7 @@ export default function NutritionTracker() {
         <Apple color="var(--accent-primary)" /> Nutrition & Hydration
       </h2>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px', marginBottom: '30px' }}>
+      <div className="grid-3" style={{ marginBottom: '30px' }}>
         <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Apple size={30} color="var(--accent-primary)" style={{ marginBottom: '10px' }} />
           <h3 className="text-muted">Avg Calories In</h3>

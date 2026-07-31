@@ -32,7 +32,7 @@ export default function RecoveryTracker() {
         <HeartPulse color="#ef5350" /> Recovery & Readiness
       </h2>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px', marginBottom: '30px' }}>
+      <div className="grid-3" style={{ marginBottom: '30px' }}>
         <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Bed size={30} color="#7e57c2" style={{ marginBottom: '10px' }} />
           <h3 className="text-muted">Avg Sleep</h3>

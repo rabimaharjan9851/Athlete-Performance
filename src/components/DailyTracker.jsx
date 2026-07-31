@@ -67,7 +67,7 @@ export default function DailyTracker() {
           <input type="date" name="date" value={formData.date} onChange={handleChange} className="input-field" required />
         </div>
         
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+        <div className="grid-2" style={{ gap: '15px' }}>
           <div>
             <label className="text-muted">Steps</label>
             <input type="number" name="steps" value={formData.steps} onChange={handleChange} className="input-field" placeholder="e.g. 10000" />
@@ -91,7 +91,7 @@ export default function DailyTracker() {
         </div>
 
         <h3 style={{ marginTop: '15px' }}>Daily Vitals (1-5 Scale)</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '15px' }}>
+        <div className="grid-3" style={{ gap: '15px' }}>
           <div>
             <label className="text-muted">Mood</label>
             <input type="range" name="mood" min="1" max="5" value={formData.mood} onChange={handleChange} style={{ width: '100%' }} />

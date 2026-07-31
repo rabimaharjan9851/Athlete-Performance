@@ -51,16 +51,16 @@ export default function PRTracker() {
       </h2>
 
       <div className="glass-panel" style={{ marginBottom: '30px' }}>
-        <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '15px', alignItems: 'flex-end', flexWrap: 'wrap' }}>
-          <div style={{ flex: '1 1 200px' }}>
-            <label className="text-muted">Exercise (e.g. Back Squat, 5K Run)</label>
+        <form onSubmit={handleSubmit} className="grid-auto" style={{ gap: '15px', alignItems: 'flex-end' }}>
+          <div>
+            <label className="text-muted">Exercise (e.g. Back Squat)</label>
             <input required type="text" className="input-field" value={formData.exercise} onChange={e => setFormData({...formData, exercise: e.target.value})} />
           </div>
-          <div style={{ width: '100px' }}>
+          <div>
             <label className="text-muted">Record</label>
             <input required type="number" step="0.1" className="input-field" value={formData.record_value} onChange={e => setFormData({...formData, record_value: e.target.value})} />
           </div>
-          <div style={{ width: '100px' }}>
+          <div>
             <label className="text-muted">Unit</label>
             <select className="input-field" value={formData.record_unit} onChange={e => setFormData({...formData, record_unit: e.target.value})}>
               <option value="kg">kg</option>
@@ -68,11 +68,11 @@ export default function PRTracker() {
               <option value="min">min</option>
             </select>
           </div>
-          <div style={{ width: '150px' }}>
+          <div>
             <label className="text-muted">Date</label>
             <input required type="date" className="input-field" value={formData.date_achieved} onChange={e => setFormData({...formData, date_achieved: e.target.value})} />
           </div>
-          <button type="submit" className="btn btn-primary" style={{ padding: '12px 20px' }}>Add PR</button>
+          <button type="submit" className="btn btn-primary" style={{ padding: '12px 20px', height: '100%' }}>Add PR</button>
         </form>
       </div>
 
