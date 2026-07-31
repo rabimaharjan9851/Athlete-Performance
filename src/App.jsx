@@ -13,6 +13,8 @@ import PRTracker from './components/PRTracker'
 import Settings from './components/Settings'
 import WorkoutLogger from './components/WorkoutLogger'
 
+import MyTeam from './components/MyTeam'
+
 // --- Protected Admin Route with proper loading state ---
 function ProtectedAdminRoute({ profile, profileLoading, children }) {
   if (profileLoading) {
@@ -49,8 +51,9 @@ function Sidebar({ onSignOut, isAdmin, profile, session }) {
     { path: '/', label: 'Dashboard', icon: <LayoutDashboard size={20} />, exact: true },
     { path: '/daily', label: 'Daily Tracker', icon: <Activity size={20} /> },
     { path: '/workout', label: 'Workouts', icon: <Dumbbell size={20} /> },
-    { path: '/recovery', label: 'Recovery', icon: <HeartPulse size={20} /> },
     { path: '/nutrition', label: 'Nutrition', icon: <Apple size={20} /> },
+    { path: '/recovery', label: 'Recovery', icon: <HeartPulse size={20} /> },
+    { path: '/team', label: 'My Team', icon: <Users size={20} /> },
     { path: '/prs', label: 'My PRs', icon: <Award size={20} /> },
     { path: '/settings', label: 'Settings', icon: <SettingsIcon size={20} /> },
   ]
@@ -219,8 +222,8 @@ function MobileNav({ isAdmin }) {
     { path: '/', label: 'Home', icon: <LayoutDashboard size={22} />, exact: true },
     { path: '/daily', label: 'Daily', icon: <Activity size={22} /> },
     { path: '/workout', label: 'Workout', icon: <Dumbbell size={22} /> },
+    { path: '/team', label: 'Team', icon: <Users size={22} /> },
     { path: '/prs', label: 'PRs', icon: <Award size={22} /> },
-    { path: '/settings', label: 'Settings', icon: <SettingsIcon size={22} /> },
   ]
   return (
     <div style={{
@@ -348,6 +351,7 @@ function App() {
             <Route path="/workout" element={<WorkoutLogger />} />
             <Route path="/recovery" element={<RecoveryTracker />} />
             <Route path="/nutrition" element={<NutritionTracker />} />
+            <Route path="/team" element={<MyTeam profile={profile} />} />
             <Route path="/prs" element={<PRTracker />} />
             <Route path="/settings" element={<Settings />} />
             <Route
@@ -396,6 +400,7 @@ function App() {
             <Route path="/workout" element={<WorkoutLogger />} />
             <Route path="/recovery" element={<RecoveryTracker />} />
             <Route path="/nutrition" element={<NutritionTracker />} />
+            <Route path="/team" element={<MyTeam profile={profile} />} />
             <Route path="/prs" element={<PRTracker />} />
             <Route path="/settings" element={<Settings />} />
             <Route
