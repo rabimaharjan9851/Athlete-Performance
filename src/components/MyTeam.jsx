@@ -87,7 +87,7 @@ export default function MyTeam({ profile }) {
         setMessage('Invitation and email sent successfully!');
       } catch (emailError) {
         console.error('EmailJS Error:', emailError);
-        setMessage('Database updated, but failed to send the email.');
+        setMessage('Email Failed: ' + (emailError.text || emailError.message || 'Check EmailJS API keys'));
       }
       
       setInviteEmail('');
