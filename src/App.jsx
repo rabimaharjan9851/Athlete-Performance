@@ -41,7 +41,7 @@ function ProtectedAdminRoute({ profile, profileLoading, children }) {
 }
 
 // --- Sidebar Navigation ---
-function Sidebar({ onSignOut, isAdmin, profile }) {
+function Sidebar({ onSignOut, isAdmin, profile, session }) {
   const location = useLocation()
   const [collapsed, setCollapsed] = useState(false)
 
@@ -104,17 +104,17 @@ function Sidebar({ onSignOut, isAdmin, profile }) {
       )}
 
       {/* User Info */}
-      {!collapsed && profile && (
+      {!collapsed && session && (
         <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(240,246,252,0.08)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent-secondary), var(--accent-primary))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.9rem', color: '#000', flexShrink: 0 }}>
-              {profile.email?.[0]?.toUpperCase()}
+              {session.user?.email?.[0]?.toUpperCase()}
             </div>
             <div style={{ overflow: 'hidden' }}>
               <div style={{ fontWeight: 600, fontSize: '0.9rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {profile.email?.split('@')[0]}
+                {session.user?.email?.split('@')[0]}
               </div>
-              {profile.is_admin && (
+              {profile?.is_admin && (
                 <div style={{ fontSize: '0.7rem', color: 'var(--accent-tertiary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <Shield size={10} /> Admin
                 </div>
@@ -324,7 +324,7 @@ function App() {
     <BrowserRouter>
       {/* Desktop Layout */}
       <div className="desktop-layout">
-        <Sidebar onSignOut={() => supabase.auth.signOut()} isAdmin={profile?.is_admin} profile={profile} />
+        <Sidebar onSignOut={() => supabase.auth.signOut()} isAdmin={profile?.is_admin} profile={profile} session={session} />
         <main style={{ marginLeft: '260px', minHeight: '100vh', padding: '32px', transition: 'margin-left 0.3s ease' }}>
           <Routes>
             <Route path="/" element={<Dashboard profile={profile} />} />
@@ -362,10 +362,10 @@ function App() {
             </div>
             Athlete
           </div>
-          {profile && (
+          {session && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                {profile.email?.split('@')[0]}
+                {session.user?.email?.split('@')[0]}
               </div>
               <button onClick={() => supabase.auth.signOut()} style={{ background: 'none', border: 'none', color: 'var(--accent-tertiary)', padding: '4px', display: 'flex', alignItems: 'center' }}>
                 <LogOut size={16} />
