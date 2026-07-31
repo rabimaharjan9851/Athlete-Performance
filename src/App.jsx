@@ -283,9 +283,15 @@ function App() {
     })
   }, [])
 
+  const [profileError, setProfileError] = useState(null)
+
   const fetchProfile = async (userId) => {
     setProfileLoading(true)
-    const { data } = await supabase.from('profiles').select('*').eq('id', userId).single()
+    const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single()
+    if (error) {
+      console.error('Supabase Profile Error:', error)
+      setProfileError(error.message)
+    }
     if (data) setProfile(data)
     setLoading(false)
     setProfileLoading(false)
@@ -299,6 +305,16 @@ function App() {
         </div>
         <div className="spinner" />
         <p className="text-muted">Loading your dashboard...</p>
+      </div>
+    )
+  }
+
+  if (profileError) {
+    return (
+      <div style={{ padding: '20px', color: 'red', textAlign: 'center', background: '#220000', minHeight: '100vh' }}>
+        <h2>Database Error</h2>
+        <p>{profileError}</p>
+        <p>Please share this exact error message with me!</p>
       </div>
     )
   }
