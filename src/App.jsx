@@ -30,7 +30,9 @@ function ProtectedAdminRoute({ profile, profileLoading, children }) {
           <ShieldAlert size={60} color="var(--accent-tertiary)" style={{ margin: '0 auto 20px' }} />
           <h2 className="heading-2" style={{ color: 'var(--accent-tertiary)', marginBottom: '10px' }}>Access Denied</h2>
           <p className="text-muted" style={{ marginBottom: '20px' }}>You do not have admin privileges to access this page.</p>
-          <Navigate to="/" replace />
+          <NavLink to="/" className="btn btn-secondary" style={{ display: 'inline-block', width: 'auto', padding: '10px 20px', textDecoration: 'none' }}>
+            Back to Dashboard
+          </NavLink>
         </div>
       </div>
     )
