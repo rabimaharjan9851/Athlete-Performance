@@ -347,6 +347,30 @@ function App() {
 
       {/* Mobile Layout */}
       <div className="mobile-layout">
+        {/* Mobile Header */}
+        <header style={{ 
+          position: 'sticky', top: 0, zIndex: 1000,
+          padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', 
+          background: 'rgba(13, 17, 23, 0.95)', backdropFilter: 'blur(20px)',
+          borderBottom: '1px solid rgba(240,246,252,0.08)' 
+        }}>
+          <div style={{ fontWeight: 800, fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ width: '24px', height: '24px', borderRadius: '6px', background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Activity size={14} color="#000" />
+            </div>
+            Athlete
+          </div>
+          {profile && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                {profile.email?.split('@')[0]}
+              </div>
+              <button onClick={() => supabase.auth.signOut()} style={{ background: 'none', border: 'none', color: 'var(--accent-tertiary)', padding: '4px', display: 'flex', alignItems: 'center' }}>
+                <LogOut size={16} />
+              </button>
+            </div>
+          )}
+        </header>
         <main style={{ minHeight: '100vh', paddingBottom: '80px' }}>
           <Routes>
             <Route path="/" element={<Dashboard profile={profile} />} />
