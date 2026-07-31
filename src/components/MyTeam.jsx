@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../utils/supabaseClient';
 import { Users, UserPlus, Mail, Shield, CheckCircle, Clock, XCircle, Trash2 } from 'lucide-react';
 
+import emailjs from '@emailjs/browser';
+
 export default function MyTeam({ profile }) {
   const [invitations, setInvitations] = useState([]);
   const [members, setMembers] = useState([]);
@@ -58,6 +60,7 @@ export default function MyTeam({ profile }) {
       return;
     }
 
+    // 1. Insert into database
     const { error } = await supabase
       .from('invitations')
       .insert([{
@@ -70,7 +73,23 @@ export default function MyTeam({ profile }) {
     if (error) {
       setMessage('Error sending invite: ' + error.message);
     } else {
-      setMessage('Invitation sent successfully!');
+      // 2. Trigger EmailJS to send the email
+      try {
+        await emailjs.send(
+          'service_wiu8ird',
+          'template_b6jjx9i',
+          {
+            to_email: inviteEmail.toLowerCase(),
+            role: inviteRole,
+          },
+          'H_TybueqLx_8Xp1hO'
+        );
+        setMessage('Invitation and email sent successfully!');
+      } catch (emailError) {
+        console.error('EmailJS Error:', emailError);
+        setMessage('Database updated, but failed to send the email.');
+      }
+      
       setInviteEmail('');
       fetchTeamData(); // refresh lists
     }
