@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from './utils/supabaseClient'
 import { BrowserRouter, Routes, Route, Navigate, NavLink, useLocation } from 'react-router-dom'
-import { Activity, LayoutDashboard, Settings as SettingsIcon, Award, HeartPulse, Apple, Dumbbell, ShieldAlert, LogOut, ChevronRight, Shield } from 'lucide-react'
+import { Activity, LayoutDashboard, Settings as SettingsIcon, Award, HeartPulse, Apple, Dumbbell, ShieldAlert, LogOut, ChevronRight, Shield, Users } from 'lucide-react'
 
 import Auth from './components/Auth'
 import Dashboard from './components/Dashboard'
