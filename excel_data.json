@@ -1,0 +1,108 @@
+{
+  "columns": [
+    "\ud83c\udfc6  ATHLETE PERFORMANCE DASHBOARD",
+    "Unnamed: 1",
+    "Unnamed: 2",
+    "Unnamed: 3",
+    "Unnamed: 4",
+    "Unnamed: 5",
+    "Unnamed: 6",
+    "Unnamed: 7",
+    "Unnamed: 8",
+    "Unnamed: 9",
+    "Unnamed: 10",
+    "Unnamed: 11",
+    "Unnamed: 12",
+    "Unnamed: 13",
+    "Unnamed: 14",
+    "Unnamed: 15",
+    "Unnamed: 16"
+  ],
+  "head": {
+    "\ud83c\udfc6  ATHLETE PERFORMANCE DASHBOARD": {
+      "0": "Powerlifting \u00b7 CrossFit \u00b7 HYROX   |   Athlete   |   Today: Thursday, July 30, 2026",
+      "1": "\ud83d\udcc5 Daily",
+      "2": NaN
+    },
+    "Unnamed: 1": {
+      "0": NaN,
+      "1": NaN,
+      "2": NaN
+    },
+    "Unnamed: 2": {
+      "0": NaN,
+      "1": "\ud83c\udfcb\ufe0f Workouts",
+      "2": NaN
+    },
+    "Unnamed: 3": {
+      "0": NaN,
+      "1": NaN,
+      "2": NaN
+    },
+    "Unnamed: 4": {
+      "0": NaN,
+      "1": "\ud83c\udfc3 Cardio",
+      "2": NaN
+    },
+    "Unnamed: 5": {
+      "0": NaN,
+      "1": NaN,
+      "2": NaN
+    },
+    "Unnamed: 6": {
+      "0": NaN,
+      "1": "\ud83d\udecc Recovery",
+      "2": NaN
+    },
+    "Unnamed: 7": {
+      "0": NaN,
+      "1": NaN,
+      "2": NaN
+    },
+    "Unnamed: 8": {
+      "0": NaN,
+      "1": "\ud83e\udd57 Nutrition",
+      "2": NaN
+    },
+    "Unnamed: 9": {
+      "0": NaN,
+      "1": NaN,
+      "2": NaN
+    },
+    "Unnamed: 10": {
+      "0": NaN,
+      "1": "\ud83d\udcca Weekly",
+      "2": NaN
+    },
+    "Unnamed: 11": {
+      "0": NaN,
+      "1": NaN,
+      "2": NaN
+    },
+    "Unnamed: 12": {
+      "0": NaN,
+      "1": "\ud83d\uddd3 Monthly",
+      "2": NaN
+    },
+    "Unnamed: 13": {
+      "0": NaN,
+      "1": NaN,
+      "2": NaN
+    },
+    "Unnamed: 14": {
+      "0": NaN,
+      "1": "\ud83c\udfc6 PRs",
+      "2": NaN
+    },
+    "Unnamed: 15": {
+      "0": NaN,
+      "1": NaN,
+      "2": NaN
+    },
+    "Unnamed: 16": {
+      "0": NaN,
+      "1": "\u2699\ufe0f Settings",
+      "2": NaN
+    }
+  }
+}

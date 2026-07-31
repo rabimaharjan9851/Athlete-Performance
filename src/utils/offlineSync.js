@@ -1,24 +1,22 @@
 import { supabase } from './supabaseClient';
 
-const STORAGE_KEY = 'athlete_workouts';
-
-export const saveWorkoutLocal = (workout) => {
-  const existing = getLocalWorkouts();
-  const newWorkout = {
-    ...workout,
+export const saveLocal = (tableName, dataObj) => {
+  const existing = getLocal(tableName);
+  const newItem = {
+    ...dataObj,
     id: Date.now().toString(), // Simple local ID
     synced: false,
     timestamp: new Date().toISOString()
   };
   
-  existing.push(newWorkout);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
-  return newWorkout;
+  existing.push(newItem);
+  localStorage.setItem(`offline_${tableName}`, JSON.stringify(existing));
+  return newItem;
 };
 
-export const getLocalWorkouts = () => {
+export const getLocal = (tableName) => {
   try {
-    const data = localStorage.getItem(STORAGE_KEY);
+    const data = localStorage.getItem(`offline_${tableName}`);
     return data ? JSON.parse(data) : [];
   } catch (e) {
     console.error("Error reading from local storage", e);
@@ -26,41 +24,37 @@ export const getLocalWorkouts = () => {
   }
 };
 
-export const syncWithSupabase = async () => {
+export const syncWithSupabase = async (tableName) => {
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) return { success: false, error: 'User not logged in' };
 
-  const workouts = getLocalWorkouts();
-  const unsynced = workouts.filter(w => !w.synced);
+  const items = getLocal(tableName);
+  const unsynced = items.filter(w => !w.synced);
   
   if (unsynced.length === 0) return { success: true, syncedCount: 0 };
   
-  console.log("Syncing to Supabase...", unsynced);
+  console.log(`Syncing ${tableName} to Supabase...`, unsynced);
   
   let successCount = 0;
   
-  for (const w of unsynced) {
-    const { data, error } = await supabase
-      .from('workouts')
-      .insert([
-        { 
-          user_id: session.user.id,
-          date: w.date, 
-          exercise: w.exercise, 
-          distance: w.distance, 
-          duration: w.duration 
-        }
-      ]);
+  for (const item of unsynced) {
+    // Strip local-only fields
+    const { id, synced, timestamp, ...payload } = item;
+    payload.user_id = session.user.id; // inject user id
+
+    const { error } = await supabase
+      .from(tableName)
+      .insert([payload]);
       
     if (error) {
-      console.error("Error syncing workout", error);
+      console.error(`Error syncing ${tableName}`, error);
     } else {
-      w.synced = true;
+      item.synced = true;
       successCount++;
     }
   }
   
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(workouts));
+  localStorage.setItem(`offline_${tableName}`, JSON.stringify(items));
   
   return { success: true, syncedCount: successCount };
 };
